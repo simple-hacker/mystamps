@@ -17,3 +17,4 @@ public/js/app.js
 public/css/app.css
 mystamps.sql
 mystamps2.sql
+.env.production
