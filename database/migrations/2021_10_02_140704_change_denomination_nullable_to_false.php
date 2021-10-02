@@ -14,7 +14,7 @@ class ChangeDenominationNullableToFalse extends Migration
     public function up()
     {
         Schema::table('stamps', function (Blueprint $table) {
-            $table->string('denomination')->nullable(false)->change();
+            $table->string('denomination')->nullable(true)->change();
         });
     }
 
@@ -26,7 +26,7 @@ class ChangeDenominationNullableToFalse extends Migration
     public function down()
     {
         Schema::table('stamps', function (Blueprint $table) {
-            $table->string('denomination')->nullable(true)->change();
+            $table->string('denomination')->nullable(false)->change();
         });
     }
 }
