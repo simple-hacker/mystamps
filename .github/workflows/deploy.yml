@@ -14,7 +14,4 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         host: ${{ secrets.SERVER_HOST }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        script: |
-          whoami
-          ls -al
-        # script: 'cd /var/www/ && ./deploy.sh mystamps'
+        script: 'cd /var/www/ && ./deploy.sh ${{ secrets.PROJECT_FOLDER }}'
