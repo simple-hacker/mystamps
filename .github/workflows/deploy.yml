@@ -11,7 +11,7 @@ jobs:
     - name: Deploy to production
       uses: appleboy/ssh-action@master
       with:
-        username: michael
-        host: mperks.co.uk
+        username: ${{ secrets.SERVER_USERNAME }}
+        host: ${{ secrets.SERVER_HOST }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: 'cd /var/www/ && ./server_deploy.sh mystamps'
