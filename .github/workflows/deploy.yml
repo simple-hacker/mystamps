@@ -1,9 +1,9 @@
 name: CD
- 
+
 on:
   push:
     branches: [ master ]
- 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,4 +14,4 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         host: ${{ secrets.SERVER_HOST }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        script: 'cd /var/www/ && ./server_deploy.sh mystamps'
+        script: 'cd /var/www/ && ./deploy.sh mystamps'
