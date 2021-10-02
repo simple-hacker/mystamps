@@ -10,9 +10,9 @@ class CatalogueController extends Controller
 {
     /**
      * Index view shows all the issues for the given year.
-     * 
+     *
      * @param integer $year
-     * 
+     *
      * @return Illuminate\View\View
      */
     public function index($year = null)
@@ -23,9 +23,9 @@ class CatalogueController extends Controller
                             ->keyBy('id')
                             ->groupBy('year', true)
                             ->sortByDesc('year');
-        
+
         $years = Year::orderBy('year', 'desc')->pluck('year');
-        
+
         if (!isset($year)) {
             // If not year in URL, then get the latest year we have entered.
             $year = $years[0];
@@ -37,7 +37,7 @@ class CatalogueController extends Controller
             }
         }
 
-        $admin = auth()->user()->hasRole('admin');
+        $admin = auth()->user() ? auth()->user()->hasRole('admin') : false;
 
         return view('catalogue.index', compact('year', 'years', 'catalogue', 'admin'));
     }
@@ -47,7 +47,7 @@ class CatalogueController extends Controller
      *
      * @param \App\Issue $id
      * @param string $slug
-     * 
+     *
      * @return Illuminate\View\View
      */
     public function issue(Issue $issue, $slug)
