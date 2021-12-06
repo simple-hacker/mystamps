@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Issue;
 use App\Stamp;
-use Validator;
 use App\Grading;
 use App\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Validator;
 
 class CollectionController extends Controller
 {
@@ -131,11 +131,11 @@ class CollectionController extends Controller
                 if ($a->issue->release_date === $b->issue->release_date) {
                     if ($a->issue->title === $b->issue->title) {
                         // return $a->title > $b->title;
-                        return $a->id > $b->id;
+                        return $a->id > $b->id ? 1 : -1;
                     }
-                    return $a->issue->title < $b->issue->title;
+                    return $a->issue->title < $b->issue->title ? -1 : 1;
                 }
-                return $a->issue->release_date < $b->issue->release_date;
+                return $a->issue->release_date < $b->issue->release_date ? -1 : 1;
             }
 
             return 0;
@@ -154,7 +154,7 @@ class CollectionController extends Controller
 
         // **
         // This just gets all the stamp and issue data of stamps you have collected.
-        // This does not get the quanitites and gradings of each stamp, that's is done with $collectedStamp.
+        // This does not get the quantities and gradings of each stamp, that is done with $collectedStamp.
         // **
         // whereHas: Only grab the Issues where we have collected a stamp from.
         // withCount: Get the total number of stamps in this issue (so we can calculate missing stamps in collection)
@@ -187,13 +187,13 @@ class CollectionController extends Controller
                     // return $a->stamp->title > $b->stamp->title;
                     if ($a->stamp->sg_number === $b->stamp->sg_number) {
                         // return $a->stamp->title > $b->stamp->title;
-                        return $b->grading->display_order < $a->grading->display_order;
+                        return $b->grading->display_order < $a->grading->display_order ? -1 : 1;
                     }
-                    return $a->stamp->sg_number > $b->stamp->sg_number;
+                    return $a->stamp->sg_number > $b->stamp->sg_number ? 1 : -1;
                 }
-                return $a->stamp->issue->title < $b->stamp->issue->title;
+                return $a->stamp->issue->title < $b->stamp->issue->title ? -1 : 1;
             }
-            return $a->stamp->issue->release_date < $b->stamp->issue->release_date;
+            return $a->stamp->issue->release_date < $b->stamp->issue->release_date ? -1 : 1;
         })
         ->groupBy(['stamp_id', 'grading.display_order']);
 
