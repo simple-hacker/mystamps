@@ -50,7 +50,7 @@ Vue.component('search-bar', require('./components/SearchBar.vue').default);
 Vue.component('forgotten-password-modal', require('./components/ForgottenPasswordModal.vue').default);
 Vue.component('collection-page', require('./components/CollectionPage.vue').default);
 Vue.component('catalogue-page', require('./components/CataloguePage.vue').default);
-Vue.component('collection-modal', require('./components/CollectionModal').default);
+Vue.component('collection-modal', require('./components/CollectionModal.vue').default);
 Vue.component('gradings', require('./components/Gradings.vue').default);
 Vue.component('denominations', require('./components/Denominations.vue').default);
 Vue.component('issue-categories', require('./components/IssueCategories.vue').default);

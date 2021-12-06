@@ -17,4 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
    .js('node_modules/countup.js/dist/countUp.js', 'public/js')
    .js('resources/js/welcome.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
-   .tailwind();
+   .tailwind()
+   .vue({ version: 2 })
