@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Issue;
 use App\Stamp;
-use Validator;
 use App\Grading;
 use App\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Validator;
 
 class CollectionController extends Controller
 {
@@ -20,7 +20,7 @@ class CollectionController extends Controller
     public function index($year = null)
     {
         list($collection, $collectedStamps, $collectionValues) = $this->getCollection();
-        
+
         // Obtain the Grading information.
         $gradings = Grading::all();
         $gradings = $gradings->keyBy('abbreviation');
@@ -41,16 +41,16 @@ class CollectionController extends Controller
 
     /**
      * Shows details about the stamp, as well as what's in your collection.
-     *  
+     *
      * @param \App\Stamp $stamp
      * @param string $slug
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function show(Stamp $stamp)
     {
         $stampsInCollection = auth()->user()->collection()->where('stamp_id', $stamp->id)->get();
-        $gradings = Grading::all();        
+        $gradings = Grading::all();
 
         return compact('stampsInCollection', 'gradings');
     }
@@ -74,7 +74,7 @@ class CollectionController extends Controller
             '*.grading_id' => 'required|integer|exists:gradings,id',
         ], $messages);
 
-        
+
         if ($validator->validate()) {
 
             foreach($request->stampsToAdd as $attributes) {
@@ -86,7 +86,7 @@ class CollectionController extends Controller
             // Haven't done it yet because the data keys aren't matching.
             // This return returns id, user_id, stamp_id, grading_id, value etc WITH gradings and stamp data.
             // Posted data was only grading_id and value.  Missing grading_type to display.
-            
+
             return auth()->user()->collection()->where('stamp_id', $request->stamp['id'])->get();
         }
 
@@ -131,11 +131,11 @@ class CollectionController extends Controller
                 if ($a->issue->release_date === $b->issue->release_date) {
                     if ($a->issue->title === $b->issue->title) {
                         // return $a->title > $b->title;
-                        return $a->id > $b->id;
+                        return $a->id > $b->id ? 1 : -1;
                     }
-                    return $a->issue->title < $b->issue->title;
+                    return $a->issue->title < $b->issue->title ? -1 : 1;
                 }
-                return $a->issue->release_date < $b->issue->release_date;
+                return $a->issue->release_date < $b->issue->release_date ? -1 : 1;
             }
 
             return 0;
@@ -154,7 +154,7 @@ class CollectionController extends Controller
 
         // **
         // This just gets all the stamp and issue data of stamps you have collected.
-        // This does not get the quanitites and gradings of each stamp, that's is done with $collectedStamp.
+        // This does not get the quantities and gradings of each stamp, that is done with $collectedStamp.
         // **
         // whereHas: Only grab the Issues where we have collected a stamp from.
         // withCount: Get the total number of stamps in this issue (so we can calculate missing stamps in collection)
@@ -178,7 +178,7 @@ class CollectionController extends Controller
         // Organise the collection by stamp and grading, because you could have multiple copies of the same stamp and grading and convert to array.
         // This is to make it easier to display data.
         // As we loop through the user's collection by stamps, it then refers to this array for the number of gradings.
-        // I think I could somehow merge this in the the mega collection above, but it's good enough for now.
+        // I think I could somehow merge this in the mega collection above, but it's good enough for now.
         // $collectedStamps = $usersCollection->sortByDesc('stamp.issue.release_date')->groupBy(['stamp_id', 'grading_id']);
 
         $collectedStamps = $usersCollection->sort(function ($a, $b) {
@@ -187,13 +187,13 @@ class CollectionController extends Controller
                     // return $a->stamp->title > $b->stamp->title;
                     if ($a->stamp->sg_number === $b->stamp->sg_number) {
                         // return $a->stamp->title > $b->stamp->title;
-                        return $b->grading->display_order < $a->grading->display_order;
+                        return $b->grading->display_order < $a->grading->display_order ? -1 : 1;
                     }
-                    return $a->stamp->sg_number > $b->stamp->sg_number;
+                    return $a->stamp->sg_number > $b->stamp->sg_number ? 1 : -1;
                 }
-                return $a->stamp->issue->title < $b->stamp->issue->title;
+                return $a->stamp->issue->title < $b->stamp->issue->title ? -1 : 1;
             }
-            return $a->stamp->issue->release_date < $b->stamp->issue->release_date;
+            return $a->stamp->issue->release_date < $b->stamp->issue->release_date ? -1 : 1;
         })
         ->groupBy(['stamp_id', 'grading.display_order']);
 

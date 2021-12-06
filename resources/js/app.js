@@ -6,7 +6,9 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+
+window.Vue = Vue;
 
 // Vue-js-modal
 import VModal from 'vue-js-modal';
@@ -29,8 +31,8 @@ const pluginOptions = {
         distractionFree: false,
     }
 }
-Vue.use(VueCurrencyInput, pluginOptions)
 
+Vue.use(VueCurrencyInput, pluginOptions)
 
 /**
  * The following block of code may be used to automatically register your
@@ -50,7 +52,7 @@ Vue.component('search-bar', require('./components/SearchBar.vue').default);
 Vue.component('forgotten-password-modal', require('./components/ForgottenPasswordModal.vue').default);
 Vue.component('collection-page', require('./components/CollectionPage.vue').default);
 Vue.component('catalogue-page', require('./components/CataloguePage.vue').default);
-Vue.component('collection-modal', require('./components/CollectionModal').default);
+Vue.component('collection-modal', require('./components/CollectionModal.vue').default);
 Vue.component('gradings', require('./components/Gradings.vue').default);
 Vue.component('denominations', require('./components/Denominations.vue').default);
 Vue.component('issue-categories', require('./components/IssueCategories.vue').default);
@@ -86,7 +88,6 @@ const app = new Vue({
                     handler: () => {
                         axios.post('/stamp/'+stamp.id,{_method: 'delete'})
                             .then(response => {
-                                console.log(response);
                                 this.$modal.hide('dialog');
                                 location.reload();
                                 // this.showMessage('Success', `Deleted stamp ${stamp.title}.`, true);
@@ -172,11 +173,9 @@ const app = new Vue({
                   handler: () => {
                       this.$modal.hide('dialog');
                       if (reload && redirect_location) {
-                        console.log('Redirecting...');
                         return location.replace(redirect_location);
                       }
                       if (reload) {
-                        console.log('Reloading')
                         return location.reload();
                       }
                   }
