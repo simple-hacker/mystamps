@@ -7,8 +7,7 @@ use App\Stamp;
 use App\Grading;
 use App\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 
 class CollectionController extends Controller
 {
