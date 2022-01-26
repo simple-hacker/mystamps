@@ -25,7 +25,7 @@ class IssueController extends Controller
      * Show the form for creating a new resource.
      *
      * @param integer $year
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function create($year = null)
@@ -48,15 +48,15 @@ class IssueController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function store(Request $request)
     {
         $attributes = $this->validateRequest($request);
-        
+
         $release_date = Carbon::parse($attributes['release_date']);
-        
+
         $attributes['year'] = $release_date->year;
 
         // If an issue with the same title and release date exists then update, else create
@@ -76,7 +76,7 @@ class IssueController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Issue  $issue
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Issue $issue)
@@ -88,14 +88,14 @@ class IssueController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Issue  $issue
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function edit(Issue $issue)
     {
         $monarchs = Monarch::all();
         $categories = IssueCategory::all();
-        
+
         return view('issue.edit', compact('issue', 'monarchs', 'categories'));
     }
 
@@ -104,7 +104,7 @@ class IssueController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Issue  $issue
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Issue $issue)
@@ -128,14 +128,14 @@ class IssueController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Issue  $issue
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Issue $issue)
     {
         $year = $issue->year;  //Grab the year before deleting so we can redirect to the correct year.
         $title = $issue->title;
-        
+
         $issue->delete();
 
         return redirect(route('catalogue.year', compact('year')))
@@ -145,7 +145,7 @@ class IssueController extends Controller
 
     /**
     * Validate the request for store and update.
-    * 
+    *
     * @param  \Illuminate\Http\Request  $request
     * @return array
     */
@@ -166,6 +166,7 @@ class IssueController extends Controller
             'gum' => 'nullable|min:1',
             'description' => 'nullable|min:1',
             'url' => 'nullable|url',
+            'sg_url' => 'nullable|url',
         ]);
     }
 }

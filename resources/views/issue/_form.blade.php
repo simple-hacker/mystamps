@@ -153,6 +153,17 @@
             @enderror
         </div>
     </div>
+    <div class="flex items-center mb-6">
+        <div class="w-1/3">
+            <label for="sg_url" class="text-gray-500 font-bold p-4">Stanley Gibbons URL</label>
+        </div>
+        <div class="flex flex-col w-2/3">
+            <input id="sg_url" name="sg_url" type="url" value="{{ old('sg_url', $issue->sg_url) }}" placeholder="Stanley Gibbons URL" class="w-full p-2 rounded border shadow @error('sg_url') border-red-500 @enderror">
+            @error('sg_url')
+                @component('components.error') {{ $message }} @endcomponent
+            @enderror
+        </div>
+    </div>
     <div class="flex items-center justify-center mb-6">
         <button type="submit" class="shadow bg-darker hover:bg-dark focus:shadow-outline focus:outline-none text-white font-bold py-3 px-5 rounded">{{ $button_text }}</button>
         <a href="{{ url()->previous() }}" class="ml-2 border-2 border-dark bg-white hover:bg-light focus:shadow-outline focus:outline-none text-dark font-bold py-3 px-5 rounded">Cancel</a>

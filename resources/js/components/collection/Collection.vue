@@ -13,11 +13,11 @@
                 </div>
                 <div class="flex">
                     <!-- External URL page -->
-                    <a v-if="issue.url" :href="issue.url" target="_blank" class="border bg-white hover:bg-gray-200 text-dark rounded shadow px-4 py-2 mb-1 mr-5">
-                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-                            <path d="M13.757 19.868c-0.416 0-0.832-0.159-1.149-0.476-2.973-2.973-2.973-7.81 0-10.783l6-6c1.44-1.44 3.355-2.233 5.392-2.233s3.951 0.793 5.392 2.233c2.973 2.973 2.973 7.81 0 10.783l-2.743 2.743c-0.635 0.635-1.663 0.635-2.298 0s-0.635-1.663 0-2.298l2.743-2.743c1.706-1.706 1.706-4.481 0-6.187-0.826-0.826-1.925-1.281-3.094-1.281s-2.267 0.455-3.094 1.281l-6 6c-1.706 1.706-1.706 4.481 0 6.187 0.635 0.635 0.635 1.663 0 2.298-0.317 0.317-0.733 0.476-1.149 0.476z"></path>
-                            <path d="M8 31.625c-2.037 0-3.952-0.793-5.392-2.233-2.973-2.973-2.973-7.81 0-10.783l2.743-2.743c0.635-0.635 1.664-0.635 2.298 0s0.635 1.663 0 2.298l-2.743 2.743c-1.706 1.706-1.706 4.481 0 6.187 0.826 0.826 1.925 1.281 3.094 1.281s2.267-0.455 3.094-1.281l6-6c1.706-1.706 1.706-4.481 0-6.187-0.635-0.635-0.635-1.663 0-2.298s1.663-0.635 2.298 0c2.973 2.973 2.973 7.81 0 10.783l-6 6c-1.44 1.44-3.355 2.233-5.392 2.233z"></path>
-                        </svg>
+                    <a v-if="issue.url" :href="issue.url" target="_blank" class="border bg-white hover:bg-gray-200 text-dark rounded shadow px-4 py-2 mb-1 mr-5 flex items-center justify-center">
+                        <svg focusable="false" data-prefix="fab" data-icon="google-drive" class="w-5 h-5" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M339 314.9L175.4 32h161.2l163.6 282.9H339zm-137.5 23.6L120.9 480h310.5L512 338.5H201.5zM154.1 67.4L0 338.5 80.6 480 237 208.8 154.1 67.4z"></path></svg>
+                    </a>
+                    <a v-if="issue.sg_url" :href="issue.sg_url" target="_blank" class="border bg-white hover:bg-gray-200 text-dark rounded shadow px-4 py-2 mb-1 mr-5 flex items-center justify-center">
+                        <span class="text-lg font-bold text-dark">SG</span>
                     </a>
                     <!-- Issue Stamp Data -->
                     <div class="flex text-xl items-center">
