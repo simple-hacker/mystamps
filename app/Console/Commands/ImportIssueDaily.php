@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Year;
 use App\Issue;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\ScraperController;
 
 class ImportIssueDaily extends Command
@@ -71,18 +72,20 @@ class ImportIssueDaily extends Command
                             ->toArray();
 
         $this->info('Checking for any new issues that we have not imported...');
-        \Log::info('Daily issue import is running.');
+        Log::info('Daily issue import is running.');
 
         $cgbs_issues = array_diff($this->scraper->cgbsIssuesByYear($this->year->year), $this->issues);
 
         foreach($cgbs_issues as $cgbs_issue) {
             $this->scraper->issue($cgbs_issue);
             $this->info('Imported new cgbs_issue ' . $cgbs_issue);
-            \Log::info('Imported new cgbs_issue ' . $cgbs_issue);
+            Log::info('Imported new cgbs_issue ' . $cgbs_issue);
         }
 
         $this->info('Finished cron job');
-        \Log::info('Daily issue import has ended.');
+        Log::info('Daily issue import has ended.');
+
+        return 0;
 
     }
 }

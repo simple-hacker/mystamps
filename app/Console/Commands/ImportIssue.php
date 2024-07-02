@@ -47,7 +47,7 @@ class ImportIssue extends Command
 
         $this->scraper = new ScraperController();
     }
-    
+
     /**
      * Execute the console command.
      *
@@ -56,7 +56,7 @@ class ImportIssue extends Command
     public function handle()
     {
         $this->issues = Issue::all()->sortBy('cgbs_issue');
-        
+
         if ($this->argument('cgbs_issue')) {
             $this->import($this->argument('cgbs_issue'));
         } else {
@@ -79,11 +79,13 @@ class ImportIssue extends Command
                 }
             }
         }
+
+        return 0;
     }
 
     /**
     * Import the issue and stamps.
-    * 
+    *
     * @param $cgbs_issue
     * @return void
     */

@@ -51,6 +51,8 @@ class RemoveRoyalMail extends Command
 
         $this->info('');
         $bar->finish();
+
+        return 0;
     }
 
     private function removeRoyalMail(&$stamp)
