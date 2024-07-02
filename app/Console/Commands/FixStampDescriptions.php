@@ -71,6 +71,8 @@ class FixStampDescriptions extends Command
             $this->info('');
             $bar->finish();
         }
+
+        return 0;
     }
 
     private function importStampDescriptions(&$issue)

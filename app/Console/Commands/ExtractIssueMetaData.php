@@ -66,6 +66,8 @@ class ExtractIssueMetaData extends Command
             $this->info('');
             $bar->finish();
         }
+
+        return 0;
     }
 
     private function extractMetaData(&$issue)

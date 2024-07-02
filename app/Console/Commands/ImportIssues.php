@@ -21,7 +21,7 @@ class ImportIssues extends Command
      * @var string
      */
     protected $description = 'Import basic issue information for every year, or optionally a single given year.';
-    
+
     /**
      * Laravel Collection of available years.
      *
@@ -47,7 +47,7 @@ class ImportIssues extends Command
 
         $this->scraper = new ScraperController();
     }
-    
+
     /**
      * Execute the console command.
      *
@@ -56,7 +56,7 @@ class ImportIssues extends Command
     public function handle()
     {
         $this->years = Year::all();
-        
+
         if ($this->argument('year')) {
             $this->import($this->argument('year'));
         } else {
@@ -66,11 +66,13 @@ class ImportIssues extends Command
                 }
             }
         }
+
+        return 0;
     }
 
     /**
     * Import the issues.
-    * 
+    *
     * @param $year
     * @return void
     */
